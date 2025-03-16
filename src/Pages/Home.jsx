@@ -4,7 +4,12 @@ import Card from "../Components/Card";
 import axios from "axios";
 import { useEffect } from "react";
 
+
 const Home = () => {
+
+
+
+
   const [nowPlayingData, setnowPlayingData] = useState([]);
 
   const [page, setpage] = useState(1);
@@ -32,6 +37,11 @@ const Home = () => {
   };
 
   const handlePage = (direction) => {
+    window.scrollTo({
+      top: 660,
+      behavior: "smooth",
+      duration: 300,
+    });
     if (direction == "left") {
       if (page > 1) {
         setpage(page - 1);
@@ -42,11 +52,6 @@ const Home = () => {
       setpage(page + 1);
     }
 
-    window.scrollTo({
-      top: 510,
-      behavior: "smooth",
-      duration: 300,
-    });
   };
 
   const fetchTopRatedData = () => {
@@ -87,7 +92,7 @@ const Home = () => {
         title = {TopRated?.title}
       />
 
-      <div className="flex gap-[5vw] flex-wrap justify-evenly  mt-[50px] ">
+      <div className="flex gap-[2vw] flex-wrap justify-evenly  mt-[50px] ">
         {nowPlayingData.length > 0 ? (
           nowPlayingData.map((item, index) => {
             return (
