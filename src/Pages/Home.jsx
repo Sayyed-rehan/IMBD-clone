@@ -4,17 +4,16 @@ import Card from "../Components/Card";
 import axios from "axios";
 import { useEffect } from "react";
 
-
 const Home = () => {
-
-
-
-
   const [nowPlayingData, setnowPlayingData] = useState([]);
 
   const [page, setpage] = useState(1);
 
-  const [TopRated, setTopRated] = useState([])
+  const [TopRated, setTopRated] = useState([]);
+
+  const [saved_to_watchList, setsaved_to_watchList] = useState([])
+
+  let controller = new AbortController();
 
   const fetchNowPlayingData = async () => {
     const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`;
@@ -24,24 +23,21 @@ const Home = () => {
         accept: "application/json",
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNjM2NWQ2YWIyNzkyMmQ0ZjQ3NjM5YTBhNzk2ZTIxNiIsIm5iZiI6MTc0MjAyMjUzOS44MTksInN1YiI6IjY3ZDUyNzhiMTNkMGU5NmI0MjdiOWYxNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.aS2kr9yxWJoc6JOF5hb44uG6mJS0slmSoMHjz6RPJp0",
-      },
+        },
+        signal: controller.signal,
     };
 
-    fetch(url, options)
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json.results);
-        setnowPlayingData(json.results);
-      })
+      fetch(url, options)
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json.results);
+          setnowPlayingData(json.results);
+        })
       .catch((err) => console.error(err));
+    
   };
 
   const handlePage = (direction) => {
-    window.scrollTo({
-      top: 660,
-      behavior: "smooth",
-      duration: 300,
-    });
     if (direction == "left") {
       if (page > 1) {
         setpage(page - 1);
@@ -52,6 +48,11 @@ const Home = () => {
       setpage(page + 1);
     }
 
+    window.scrollTo({
+      top: 660,
+      behavior: "smooth",
+      duration: 300,
+    });
   };
 
   const fetchTopRatedData = () => {
@@ -69,28 +70,46 @@ const Home = () => {
     fetch(url, options)
       .then((res) => res.json())
       .then((json) => {
-        console.log('top rated',json.results[0])
-        setTopRated(json.results[0])
+        console.log("top rated", json.results[0]);
+        setTopRated(json.results[0]);
       })
       .catch((err) => console.error(err));
   };
 
- 
+  const SavedToWatchList = (data)=>{
+    setsaved_to_watchList([...saved_to_watchList, data])
+  }
+
+  const RemoveFromWatchList = (index)=>{
+    saved_to_watchList.splice(index, 1)
+    setsaved_to_watchList([...saved_to_watchList])
+  } 
+
+  console.log(saved_to_watchList);
 
   useEffect(() => {
-    fetchNowPlayingData();
+    console.log("APi caliing");
+
+    try {
+      
+      fetchNowPlayingData();
+    } catch (error) {
+      console.log(error);
+    }
+
+
+    return () => {
+      console.log("cleaning up brefore next call");
+    };
   }, [page]);
 
-  useEffect(()=>{
-    fetchTopRatedData()
-  },[])
+  useEffect(() => {
+    fetchTopRatedData();
+  }, []);
 
   return (
     <div className="ml-[3vw] mr-[2vw]">
-      <Banner 
-        img={TopRated?.backdrop_path}
-        title = {TopRated?.title}
-      />
+      <Banner img={TopRated?.backdrop_path} title={TopRated?.title} />
 
       <div className="flex gap-[2vw] flex-wrap justify-evenly  mt-[50px] ">
         {nowPlayingData.length > 0 ? (
@@ -98,12 +117,10 @@ const Home = () => {
             return (
               <Card
                 key={item.id}
-                img={
-                  item.backdrop_path != null
-                    ? item.backdrop_path
-                    : item.poster_path
-                }
-                title={item.title}
+                data={item}
+                SavedToWatchList={SavedToWatchList}
+                saved_to_watchList_arr = {saved_to_watchList}
+                RemoveFromWatchList = {RemoveFromWatchList}
               />
             );
           })
