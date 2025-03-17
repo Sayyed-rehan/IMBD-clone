@@ -76,17 +76,25 @@ const Home = () => {
       .catch((err) => console.error(err));
   };
 
+
+  // save to watch list
   const SavedToWatchList = (data)=>{
     setsaved_to_watchList([...saved_to_watchList, data])
+
+    //add to localstorage
+    // localStorage.setItem('watchlist', JSON.stringify([...]))
   }
 
-  const RemoveFromWatchList = (index)=>{
-    saved_to_watchList.splice(index, 1)
-    setsaved_to_watchList([...saved_to_watchList])
+  const RemoveFromWatchList = (data)=>{
+    // saved_to_watchList.splice(index, 1)
+    setsaved_to_watchList([...data])
   } 
 
-  console.log(saved_to_watchList);
+  console.log('ass',saved_to_watchList);
 
+  
+
+  // update on every pagination 
   useEffect(() => {
     console.log("APi caliing");
 
@@ -103,9 +111,18 @@ const Home = () => {
     };
   }, [page]);
 
+
+  //to see Banner
   useEffect(() => {
     fetchTopRatedData();
   }, []);
+
+
+
+  // store  watchlist to  localStorage 
+  useEffect(()=>{
+    localStorage.setItem('watchlist', JSON.stringify([...saved_to_watchList]))
+  },[saved_to_watchList])
 
   return (
     <div className="ml-[3vw] mr-[2vw]">

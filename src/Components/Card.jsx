@@ -17,18 +17,23 @@ const Card = (props) => {
 
   const handleLike = ()=>{
     // console.log('liked', props);
-    props.SavedToWatchList(props.data.id)
+    // props.SavedToWatchList(props.data.id)
+    props.SavedToWatchList(props.data)
+
   }
 
   const handleDisLike = ()=>{
    console.log('disliked');
-    let index = props.saved_to_watchList_arr.indexOf(props.data.id)
-    props.RemoveFromWatchList(index)
+    // let index = props.saved_to_watchList_arr.indexOf(props.data.id)
+    let filtered_data = props.saved_to_watchList_arr.filter((x,i)=> x.id != props.data.id)
+      // console.log(filtered_data);
+    props.RemoveFromWatchList(filtered_data)
   }
 
   const checkIsSaved= ()=>{
     // console.log('ass on',props.saved_to_watchList_arr.includes(props.data.id))
-    return props.saved_to_watchList_arr.includes(props.data.id)
+    let filtered_data =  props.saved_to_watchList_arr.filter((item)=>item.id == props.data.id)
+    return filtered_data.length > 0
   }
 
   // useEffect(()=>{
@@ -45,14 +50,15 @@ const Card = (props) => {
         <div className="text-[white] w-full  text-center text-x p-2 bg-gray-400/70 rounded-lg">
             <h1>{props.data.title}</h1>
         </div>
-        <div className="text-[red] text-[25px]   flex justify-end p-[10px]  hover:scale-y-150 hover:scale-x-105 duration-300 hover:cursor-pointer">
+        <div className="text-[red]  text-[25px]  flex justify-end p-[10px]  hover:scale-y-150 hover:scale-x-150 duration-300 hover:cursor-pointer">
         
         {  
         checkIsSaved() == true 
-        ? <i class="fa-solid fa-trash" style={{color:'#fdd835'}} onClick={handleDisLike}></i> 
+        ? <i class="fa-solid fa-trash" style={{color:'orange'}} onClick={handleDisLike}></i> 
         : <i class="fa-solid fa-heart" onClick={handleLike}></i>
         }
         </div>
+       
     </div>
   );
 };
