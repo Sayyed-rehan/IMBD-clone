@@ -77,13 +77,15 @@ const Home = () => {
 
   // save to watch list
   const SavedToWatchList = (data) => {
-    localStorage.setItem("watchlist", JSON.stringify([...saved_to_watchList, data]));
+    // localStorage.setItem("watchlist", JSON.stringify([...saved_to_watchList, data]));
+    let watchlist_data = JSON.parse(localStorage.getItem("watchlist")) || [];
+    localStorage.setItem('watchlist', JSON.stringify([...watchlist_data, data]))
+
     setsaved_to_watchList([...saved_to_watchList, data]);
     
   };
 
   const RemoveFromWatchList = (data) => {
-    // saved_to_watchList.splice(index, 1)
     localStorage.setItem("watchlist", JSON.stringify([...data]));
     setsaved_to_watchList([...data]);
   };

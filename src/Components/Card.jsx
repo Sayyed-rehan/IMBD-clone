@@ -13,10 +13,12 @@ const Card = (props) => {
   }
 
   const handleLike = () => {
-    // console.log('liked', props);
-    // props.SavedToWatchList(props.data.id)
-    let watchlist_data = JSON.parse(localStorage.getItem("watchlist")) || [];
-    localStorage.setItem('watchlist', JSON.stringify([...watchlist_data, props.data]))
+    
+    // let watchlist_data = JSON.parse(localStorage.getItem("watchlist")) || [];
+    // console.log('before liking',[...watchlist_data, props.data]);
+    // localStorage.setItem('watchlist', JSON.stringify([...watchlist_data, props.data]))
+    // console.log('after liking',watchlist_data);
+
     props.SavedToWatchList(props.data);
   };
 
@@ -28,7 +30,6 @@ const Card = (props) => {
     let filtered_data = watchlist_data.filter(
       (x, i) => x.id != props.data.id
     );
-    // console.log(filtered_data);
     props.RemoveFromWatchList(filtered_data);
   };
 
@@ -42,9 +43,7 @@ const Card = (props) => {
     return filtered_data.length > 0;
   };
 
-  // useEffect(()=>{
-  //   checkIsSaved()
-  // })
+ 
 
   return (
     <div

@@ -5,6 +5,7 @@ const WatchList = () => {
   console.log(watchlist_data);
   return (
     <div>
+    
       {watchlist_data.map((x,i)=>{
         return <>
           <p>{x.title}</p>
