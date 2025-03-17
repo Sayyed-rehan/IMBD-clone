@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Banner from "../Components/Banner";
 import Card from "../Components/Card";
-import axios from "axios";
+// import axios from "axios";
 import { useEffect } from "react";
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
 
   const [TopRated, setTopRated] = useState([]);
 
-  const [saved_to_watchList, setsaved_to_watchList] = useState([])
+  const [saved_to_watchList, setsaved_to_watchList] = useState([]);
 
   let controller = new AbortController();
 
@@ -23,18 +23,17 @@ const Home = () => {
         accept: "application/json",
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNjM2NWQ2YWIyNzkyMmQ0ZjQ3NjM5YTBhNzk2ZTIxNiIsIm5iZiI6MTc0MjAyMjUzOS44MTksInN1YiI6IjY3ZDUyNzhiMTNkMGU5NmI0MjdiOWYxNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.aS2kr9yxWJoc6JOF5hb44uG6mJS0slmSoMHjz6RPJp0",
-        },
-        signal: controller.signal,
+      },
+      signal: controller.signal,
     };
 
-      fetch(url, options)
-        .then((res) => res.json())
-        .then((json) => {
-          console.log(json.results);
-          setnowPlayingData(json.results);
-        })
+    fetch(url, options)
+      .then((res) => res.json())
+      .then((json) => {
+        // console.log(json.results);
+        setnowPlayingData(json.results);
+      })
       .catch((err) => console.error(err));
-    
   };
 
   const handlePage = (direction) => {
@@ -70,59 +69,59 @@ const Home = () => {
     fetch(url, options)
       .then((res) => res.json())
       .then((json) => {
-        console.log("top rated", json.results[0]);
+        // console.log("top rated", json.results[0]);
         setTopRated(json.results[0]);
       })
       .catch((err) => console.error(err));
   };
 
-
   // save to watch list
-  const SavedToWatchList = (data)=>{
-    setsaved_to_watchList([...saved_to_watchList, data])
+  const SavedToWatchList = (data) => {
+    localStorage.setItem("watchlist", JSON.stringify([...saved_to_watchList, data]));
+    setsaved_to_watchList([...saved_to_watchList, data]);
+    
+  };
 
-    //add to localstorage
-    // localStorage.setItem('watchlist', JSON.stringify([...]))
-  }
-
-  const RemoveFromWatchList = (data)=>{
+  const RemoveFromWatchList = (data) => {
     // saved_to_watchList.splice(index, 1)
-    setsaved_to_watchList([...data])
-  } 
+    localStorage.setItem("watchlist", JSON.stringify([...data]));
+    setsaved_to_watchList([...data]);
+  };
 
-  console.log('ass',saved_to_watchList);
+  console.log("ass", saved_to_watchList);
 
-  
-
-  // update on every pagination 
+  // update on every pagination
   useEffect(() => {
     console.log("APi caliing");
 
     try {
-      
       fetchNowPlayingData();
     } catch (error) {
       console.log(error);
     }
-
 
     return () => {
       console.log("cleaning up brefore next call");
     };
   }, [page]);
 
-
   //to see Banner
   useEffect(() => {
     fetchTopRatedData();
   }, []);
 
+  // store  watchlist to  localStorage
+  // useEffect(() => {
 
+  //   let watchlist_data = JSON.parse(localStorage.getItem("watchlist"));
+  //   if(saved_to_watchList.length == watchlist_data.length ){
+  //     localStorage.setItem("watchlist", JSON.stringify([...saved_to_watchList]));
+  //   }else{
+  //     console.log('im called');
+  //     localStorage.setItem("watchlist", JSON.stringify([...watchlist_data]));
 
-  // store  watchlist to  localStorage 
-  useEffect(()=>{
-    localStorage.setItem('watchlist', JSON.stringify([...saved_to_watchList]))
-  },[saved_to_watchList])
+  //   }
+  // }, [saved_to_watchList]);
 
   return (
     <div className="ml-[3vw] mr-[2vw]">
@@ -136,8 +135,8 @@ const Home = () => {
                 key={item.id}
                 data={item}
                 SavedToWatchList={SavedToWatchList}
-                saved_to_watchList_arr = {saved_to_watchList}
-                RemoveFromWatchList = {RemoveFromWatchList}
+                saved_to_watchList_arr={saved_to_watchList}
+                RemoveFromWatchList={RemoveFromWatchList}
               />
             );
           })
