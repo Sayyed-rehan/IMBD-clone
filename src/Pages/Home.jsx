@@ -47,11 +47,13 @@ const Home = () => {
       setpage(page + 1);
     }
 
-    window.scrollTo({
-      top: 660,
-      behavior: "smooth",
-      duration: 300,
-    });
+  
+      window.scrollTo({
+        top: 660,
+        behavior: "smooth",
+        duration: 300,
+      });
+  
   };
 
   const fetchTopRatedData = () => {

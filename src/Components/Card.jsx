@@ -51,6 +51,7 @@ const Card = (props) => {
       style={{
         backgroundImage: `url(${path})`,
       }}
+      
     >
       <div className="text-[white] w-full  text-center text-x p-2 bg-gray-400/70 rounded-lg">
         <h1>{props.data.title}</h1>
