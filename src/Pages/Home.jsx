@@ -129,7 +129,9 @@ const Home = () => {
 
   return (
     <div className="ml-[3vw] mr-[2vw]">
-      <Banner img={TopRated?.backdrop_path} title={TopRated?.title} />
+      <Banner 
+        data = {TopRated}
+        />
 
       <div className="flex gap-[2vw] flex-wrap justify-evenly  mt-[50px] ">
         {nowPlayingData.length > 0 ? (
