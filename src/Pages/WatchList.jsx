@@ -50,6 +50,14 @@ const WatchList = () => {
 
   console.log(selected_genre);
 
+  const handleDelete = (data)=>{
+    console.log(data.id);
+   let temp =  watchList.filter(obj => obj.id != data.id)
+   console.log(temp);
+   localStorage.setItem('watchlist', JSON.stringify(temp))
+   setwatchList(temp)
+  }
+
   // initialise state with current localstorage
   useEffect(() => {
     let watchlist_data = JSON.parse(localStorage.getItem("watchlist")) || [];
@@ -120,6 +128,8 @@ const WatchList = () => {
               </th>
               <th>Popularity</th>
               <th>Genre</th>
+              <th>Delete</th>
+
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 border-t border-gray-100">
@@ -145,6 +155,9 @@ const WatchList = () => {
                       <td className="pl-6 py-4">{item.popularity}</td>
                       <td className="pl-2 py-4">
                         {genreids[item.genre_ids[0]] || "NA"}
+                      </td>
+                      <td className="flex justify-center items-center  text-[red] text-[large]  h-max bg-black">
+                      <i class="fa-solid fa-trash" onClick={()=>handleDelete(item)}></i>
                       </td>
                     </tr>
                   );
