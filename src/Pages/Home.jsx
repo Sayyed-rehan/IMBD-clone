@@ -71,11 +71,17 @@ const Home = () => {
     fetch(url, options)
       .then((res) => res.json())
       .then((json) => {
-        // console.log("top rated", json.results[0]);
-        setTopRated(json.results[0]);
+        console.log("top rated", json.results);
+        setTopRated(json.results);
+        // setTopRated(json.results[]);
+
       })
       .catch((err) => console.error(err));
   };
+
+  console.log('aaaaaa',TopRated);
+
+
 
   // save to watch list
   const SavedToWatchList = (data) => {
@@ -92,11 +98,11 @@ const Home = () => {
     setsaved_to_watchList([...data]);
   };
 
-  console.log("ass", saved_to_watchList);
+
 
   // update on every pagination
   useEffect(() => {
-    console.log("APi caliing");
+    // console.log("APi caliing");
 
     try {
       fetchNowPlayingData();
@@ -114,18 +120,7 @@ const Home = () => {
     fetchTopRatedData();
   }, []);
 
-  // store  watchlist to  localStorage
-  // useEffect(() => {
 
-  //   let watchlist_data = JSON.parse(localStorage.getItem("watchlist"));
-  //   if(saved_to_watchList.length == watchlist_data.length ){
-  //     localStorage.setItem("watchlist", JSON.stringify([...saved_to_watchList]));
-  //   }else{
-  //     console.log('im called');
-  //     localStorage.setItem("watchlist", JSON.stringify([...watchlist_data]));
-
-  //   }
-  // }, [saved_to_watchList]);
 
   return (
     <div className="ml-[3vw] mr-[2vw]">

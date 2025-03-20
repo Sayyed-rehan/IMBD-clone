@@ -15,7 +15,7 @@ const WatchList = () => {
     watchList.sort((ob1, ob2) => {
       return ob1.vote_average - ob2.vote_average;
     });
-    console.log("from low", watchList);
+
     setwatchList([...watchList]);
   };
 
@@ -26,7 +26,7 @@ const WatchList = () => {
     watchList.sort((ob1, ob2) => {
       return ob2.vote_average - ob1.vote_average;
     });
-    console.log("from high", watchList);
+    // console.log("from high", watchList);
     setwatchList([...watchList]);
   };
 
@@ -37,22 +37,21 @@ const WatchList = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setinput(e.target.value);
     
   };
 
   const handleGenre = (e)=>{
-    // console.log(e.target.innerText);
+  
     setselected_genre(e.target.innerText)
   }
 
-  console.log(selected_genre);
+  // console.log(selected_genre);
 
   const handleDelete = (data)=>{
-    console.log(data.id);
+    // console.log(data.id);
    let temp =  watchList.filter(obj => obj.id != data.id)
-   console.log(temp);
+  //  console.log(temp);
    localStorage.setItem('watchlist', JSON.stringify(temp))
    setwatchList(temp)
   }
@@ -60,7 +59,7 @@ const WatchList = () => {
   // initialise state with current localstorage
   useEffect(() => {
     let watchlist_data = JSON.parse(localStorage.getItem("watchlist")) || [];
-    console.log(watchlist_data);
+    // console.log(watchlist_data);
     setwatchList([...watchlist_data]);
   }, []);
 
@@ -73,13 +72,13 @@ const WatchList = () => {
     .filter((item)=>item != undefined)
 
     temp = new Set(temp)
-    // console.log(temp);
+   
 
     setall_Genres([all_Genres[0],  ...temp])
     
   },[watchList])
 
-  // console.log(all_Genres);
+
 
   return (
     <div>
@@ -97,14 +96,15 @@ const WatchList = () => {
     </div>
 
     <div className="flex justify-center">
-      <input type="text" placeholder="Ass" value={input} onChange={handleChange}  
-      className="h-[3rem] w-[18rem] bg-gray-200 px-4 outline-none border border-slate-600"/>
+      <input type="text" placeholder="Search Movie title here..." value={input} onChange={handleChange}  
+      className="h-[3rem] w-[18rem] bg-gray-200 px-4 outline-none border border-slate-600 rounded-[5px]"/>
     </div>
+    
       <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
         <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
           <thead>
             <tr className="bg-gray-50">
-              <th className="px-6 py-4 font-medium text-gray-900">Name</th>
+              <th className="px-6 py-4 font-medium text-gray-900 text-left">Name</th>
               <th className="ml-[20px]">
                 <div className="flex items-center gap-[10px] ">
                   <i
@@ -138,7 +138,7 @@ const WatchList = () => {
                 .filter((obj) =>obj.title.toLowerCase().includes(input.toLowerCase()))
                 .map((item) => {
                   return (
-                    <tr className="hover:bg-gray-100" key={item.id}>
+                    <tr className="hover:bg-gray-100 text-left" key={item.id}>
                       <td className="flex items-center gap-[50px] px-6 py-4 font-normal text-gray-900">
                         <img
                           className="h-[9rem] w-[15rem] object-fit"
@@ -146,12 +146,12 @@ const WatchList = () => {
                           alt={item.title}
                         />
                         <div className="font-medium text-gray-700 text-sm">
-                          {item.title}
+                          {item.title} 
                         </div>
                       </td>
 
                       <td className="pl-6 py-4">{item.vote_average}</td>
-                      <td className="pl-6 py-4">{item.popularity}</td>
+                      <td className=" py-6  text-left">{item.popularity}</td>
                       <td className="pl-2 py-4">
                         {genreids[item.genre_ids[0]] || "NA"}
                       </td>
@@ -162,9 +162,12 @@ const WatchList = () => {
                   );
                 })
             ) : (
-              <h1 className="font-medium text-gray-700 text-xl">
+              <tr>
+
+              <td className="font-medium text-gray-700 text-xl">
                 No Data Available
-              </h1>
+              </td>
+              </tr>
             )}
           </tbody>
         </table>
