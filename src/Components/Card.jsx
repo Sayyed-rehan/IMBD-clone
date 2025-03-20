@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 
 const Card = (props) => {
   // console.log('props', props.id);
@@ -9,7 +8,7 @@ const Card = (props) => {
   } else if (props.data.backdrop_path) {
     path = `https://image.tmdb.org/t/p/original${props.data.backdrop_path}`;
   } else {
-    path = "../../public/dummy_movie.jpg";
+    path = "../../dummy_movie.jpg";
   }
 
   const handleLike = () => {

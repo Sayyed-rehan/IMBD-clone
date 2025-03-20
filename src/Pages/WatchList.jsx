@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import genreids from "../Uitility";
 
@@ -156,7 +155,7 @@ const WatchList = () => {
                       <td className="pl-2 py-4">
                         {genreids[item.genre_ids[0]] || "NA"}
                       </td>
-                      <td className="flex justify-center items-center  text-[red] text-[large]  h-max bg-black">
+                      <td className="pl-7 py-4 text-red-600 text-[large] cursor-[pointer] hover:scale-150 duration-300" >
                       <i class="fa-solid fa-trash" onClick={()=>handleDelete(item)}></i>
                       </td>
                     </tr>

@@ -1,5 +1,5 @@
 import React from "react";
-import dummy from "../../public/dummy.jpg";
+
 
 
 const Banner = (props) => {
@@ -13,7 +13,7 @@ const Banner = (props) => {
   }else if(props.data.poster_path){
     path = `https://image.tmdb.org/t/p/original${props.data.poster_path}`
   }else{
-    path = '../../public/dummy.jpg'
+    path = '../../dummy.jpg'
   }
 
   return (
