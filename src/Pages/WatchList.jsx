@@ -26,7 +26,7 @@ const WatchList = () => {
     watchList.sort((ob1, ob2) => {
       return ob2.vote_average - ob1.vote_average;
     });
-    // console.log("from high", watchList);
+    console.log("from high", watchList);
     setwatchList([...watchList]);
   };
 
@@ -108,18 +108,18 @@ const WatchList = () => {
               <th className="ml-[20px]">
                 <div className="flex items-center gap-[10px] ">
                   <i
-                    class="fa-solid fa-arrow-up"
+                    class="fa-solid fa-arrow-up hover:scale-150 duration-300"
                     onClick={handleHigh}
                     style={{ "font-size": "large", cursor: "pointer" }}
                   ></i>
                   <div
-                    className="cursor-pointer hover:scale-y-150 hover:scale-x-150 duration-300"
+                    className="cursor-pointer hover:scale-150  duration-300"
                     onClick={handleNormal}
                   >
                     Ratings
                   </div>
                   <i
-                    class="fa-solid fa-arrow-down"
+                    class="fa-solid fa-arrow-down hover:scale-150 duration-300"
                     onClick={handleLow}
                     style={{ "font-size": "large", cursor: "pointer" }}
                   ></i>

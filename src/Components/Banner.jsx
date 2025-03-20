@@ -40,14 +40,14 @@ const Banner = (props) => {
         backgroundImage: `url(${path})`,
       }}
     >
-        <div className="text-[white] w-full text-center text-[20px]">
+        <div className="text-[white] font-bold w-full text-center text-[20px]">
         <i
-          class="fa-solid fa-arrow-left hover:scale-150 duration-300 cursor-pointer hover:text-[white] pr-[20px]"
+          class="fa-solid fa-arrow-left hover:scale-150 duration-300 cursor-pointer hover:text-[white] pr-[18px]"
           onClick={()=>handleBannerPage('left')}
         ></i>
             {props.data[banner_page]?.title} 
         <i
-          class="fa-solid fa-arrow-right hover:scale-150 duration-300 cursor-pointer hover:text-[white] pl-[15px]"
+          class="fa-solid fa-arrow-right hover:scale-150 duration-300 cursor-pointer hover:text-[white] pl-[18px]"
           onClick={()=>handleBannerPage('right')}
         ></i>
         </div>

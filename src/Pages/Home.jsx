@@ -79,7 +79,7 @@ const Home = () => {
       .catch((err) => console.error(err));
   };
 
-  console.log('aaaaaa',TopRated);
+  // console.log('aaaaaa',TopRated);
 
 
 
