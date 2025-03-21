@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <div className="flex space-x-8 items-center pl-3 py-4">
       <Link to="/" className="">
-        <img src={path} alt="imdb-logo"  className="w-[70px]"/>
+        <img src='../../imdbLogo.png' alt="imdb-logo"  className="w-[70px]"/>
       </Link>
       <Link className="text-blue-500 text-3xl font-bold" to="/">Movies</Link>
       <Link className="text-blue-500 text-3xl font-bold" to="/watchlist">
