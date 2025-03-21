@@ -100,8 +100,8 @@ const WatchList = () => {
       className="h-[3rem] w-[18rem] bg-gray-200 px-4 outline-none border border-slate-600 rounded-[5px]"/>
     </div>
     
-      <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
-        <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+      <div className="rounded-lg border border-gray-200 shadow-md m-5">
+        <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 overflow-auto">
           <thead>
             <tr className="bg-gray-50">
               <th className="px-6 py-4 font-medium text-gray-900 text-left">Name</th>
@@ -115,7 +115,7 @@ const WatchList = () => {
                   <div
                     className="cursor-pointer hover:scale-150  duration-300"
                     onClick={handleNormal}
-                  >
+                  >  
                     Ratings
                   </div>
                   <i
@@ -138,7 +138,7 @@ const WatchList = () => {
                 .filter((obj) =>obj.title.toLowerCase().includes(input.toLowerCase()))
                 .map((item) => {
                   return (
-                    <tr className="hover:bg-gray-100 text-left" key={item.id}>
+                    <tr className="hover:bg-gray-100 text-left " key={item.id}>
                       <td className="flex items-center gap-[50px] px-6 py-4 font-normal text-gray-900">
                         <img
                           className="h-[9rem] w-[15rem] object-fit"
